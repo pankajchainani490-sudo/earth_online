@@ -1,0 +1,8 @@
+{
+  "ai": {
+    "apiKey": "sk-cp-39GJD0JfxtzSsZw2X6rOIkd7SOWndipemTrxJFVqqevgca_3lwQZYf5L9VhDuQPy1ofupkZmFBThVJNy-VLyeJT-Jmd2cWBsiKeCdTkBeickBXiRL7HfMUQ",
+    "model": "MiniMax-M2.7",
+    "baseUrl": "",
+    "provider": "minimax"
+  }
+}

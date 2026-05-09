@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --space-black: #0a0e17;
+  --theme-primary: #00d4ff;
+  --theme-secondary: #fbbf24;
+  --theme-bg: #0a0e17;
+  --theme-primary-rgb: 0, 212, 255;
+  --theme-secondary-rgb: 251, 191, 36;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background-color: var(--theme-bg);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Theme-aware scrollbar */
+::-webkit-scrollbar-track {
+  background: rgba(var(--theme-primary-rgb), 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-primary);
+  border-radius: 4px;
+}
+
+/* Neon border - primary color glow */
+.neon-border {
+  border: 1px solid var(--theme-primary);
+  box-shadow: 0 0 10px var(--theme-primary),
+              inset 0 0 10px rgba(var(--theme-primary-rgb), 0.1);
+}
+
+/* Neon gold - secondary color glow */
+.neon-gold {
+  color: var(--theme-secondary);
+  text-shadow: 0 0 10px var(--theme-secondary);
+}
+
+/* Text colors using theme variables */
+.text-quantum-blue {
+  color: var(--theme-primary) !important;
+}
+
+.text-star-gold {
+  color: var(--theme-secondary) !important;
+}
+
+/* Border colors */
+.border-quantum-blue {
+  border-color: var(--theme-primary) !important;
+}
+
+/* Theme background */
+.bg-theme {
+  background-color: var(--theme-bg) !important;
+}
+
+/* Theme card backgrounds with transparency */
+.bg-theme-card {
+  background-color: rgba(var(--theme-bg-rgb, 10, 14, 23), 0.6) !important;
+}
+
+.bg-theme-card-solid {
+  background-color: var(--theme-bg) !important;
+}
+
+/* Theme-aware text colors */
+.text-theme-primary {
+  color: var(--theme-primary) !important;
+}
+
+.text-theme-secondary {
+  color: var(--theme-secondary) !important;
+}
+
+/* Theme-aware water bar colors */
+.bg-theme-secondary {
+  background-color: var(--theme-secondary) !important;
+}
+
+.bg-theme-primary-dark {
+  background-color: color-mix(in srgb, var(--theme-primary) 30%, black) !important;
+}
+
+/* Theme-aware border colors */
+.border-theme-primary {
+  border-color: var(--theme-primary) !important;
+}
+
+.border-theme-secondary {
+  border-color: var(--theme-secondary) !important;
+}
+
+/* Theme-aware backgrounds with opacity */
+.bg-theme-primary {
+  background-color: var(--theme-primary) !important;
+}
+
+.bg-theme-secondary {
+  background-color: var(--theme-secondary) !important;
+}
+
+.bg-theme-primary\/20 {
+  background-color: rgba(var(--theme-primary-rgb), 0.2) !important;
+}
+
+.bg-theme-primary\/10 {
+  background-color: rgba(var(--theme-primary-rgb), 0.1) !important;
+}
+
+.bg-theme-primary\/30 {
+  background-color: rgba(var(--theme-primary-rgb), 0.3) !important;
+}
+
+.bg-theme-secondary\/20 {
+  background-color: rgba(var(--theme-secondary-rgb), 0.2) !important;
+}
+
+.bg-theme-secondary\/10 {
+  background-color: rgba(var(--theme-secondary-rgb), 0.1) !important;
+}
+
+.bg-theme-secondary\/30 {
+  background-color: rgba(var(--theme-secondary-rgb), 0.3) !important;
+}
+
+/* Theme-aware accent color for form elements */
+.accent-theme-primary {
+  accent-color: var(--theme-primary) !important;
+}
+
+.accent-theme-secondary {
+  accent-color: var(--theme-secondary) !important;
+}
+
+/* Scanline animation */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--theme-primary), transparent);
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
