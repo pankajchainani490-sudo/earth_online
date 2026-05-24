@@ -1,7 +1,7 @@
 {
-  "name": "life-protocol-desktop",
+  "name": "life-protocol-web",
   "version": "1.0.0",
-  "description": "Life Protocol - 人生协议桌面版",
+  "description": "Life Protocol - 人生模拟游戏 Web 版",
   "main": "vite.config.ts",
   "scripts": {
     "dev": "vite",
@@ -9,10 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/android": "^8.3.1",
-    "@capacitor/cli": "^8.3.1",
-    "@capacitor/core": "^8.3.1",
-    "@capacitor/ios": "^8.3.2",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
