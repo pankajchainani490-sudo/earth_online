@@ -9,7 +9,7 @@ const mbtiOptions = ['INTJ', 'INTP', 'ENTJ', 'ENTP', 'INFJ', 'INFP', 'ENFJ', 'EN
 
 const SETUP_FORM_KEY = 'setup_form_data'
 
-const DEFAULT_API_KEY = 'sk-cp-jsL3usRB85Xqesl1NKyNfNix3rmSKmETSZLxZXIwLV-y-t-NU0WtMXsGABTeB0OhZFzxDvDm3hannjlX86hgvstrZsYh3_tx4NyJKvuWlIkHrq8IvGtmtW8'
+const DEFAULT_API_KEY = 'sk-cp-39GJD0JfxtzSsZw2X6rOIkd7SOWndipemTrxJFVqqevgca_3lwQZYf5L9VhDuQPy1ofupkZmFBThVJNy-VLyeJT-Jmd2cWBsiKeCdTkBeickBXiRL7HfMUQ'
 
 interface SetupProps {
   hasApiKey: boolean
