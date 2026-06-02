@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { usePlayerStore } from '../store/playerStore'
-import { useConfigStore } from '../store/configStore'
+import { DEFAULT_MINIMAX_CONFIG, useConfigStore } from '../store/configStore'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const educationOptions = ['小学', '初中', '高中', '专科', '本科', '硕士', '博士']
@@ -8,8 +8,6 @@ const careerStageOptions = ['新手', '成长', '资深', '专家', '领袖']
 const mbtiOptions = ['INTJ', 'INTP', 'ENTJ', 'ENTP', 'INFJ', 'INFP', 'ENFJ', 'ENFP', 'ISTJ', 'ISFJ', 'ESTJ', 'ESFJ', 'ISTP', 'ISFP', 'ESTP', 'ESFP']
 
 const SETUP_FORM_KEY = 'setup_form_data'
-
-const DEFAULT_API_KEY = 'sk-cp-39GJD0JfxtzSsZw2X6rOIkd7SOWndipemTrxJFVqqevgca_3lwQZYf5L9VhDuQPy1ofupkZmFBThVJNy-VLyeJT-Jmd2cWBsiKeCdTkBeickBXiRL7HfMUQ'
 
 interface SetupProps {
   hasApiKey: boolean
@@ -122,10 +120,8 @@ export default function Setup({ hasApiKey, onApiKeyConfigured }: SetupProps) {
     }
     try {
       useConfigStore.getState().saveConfig({
-        apiKey: useDefaultApi ? DEFAULT_API_KEY : apiKey.trim(),
-        model: 'MiniMax-M2.7',
-        baseUrl: 'https://api.minimax.chat/v1',
-        provider: 'minimax',
+        ...DEFAULT_MINIMAX_CONFIG,
+        apiKey: useDefaultApi ? DEFAULT_MINIMAX_CONFIG.apiKey : apiKey.trim(),
         useDefaultApi
       })
       setApiKeyError('')
@@ -720,10 +716,8 @@ export default function Setup({ hasApiKey, onApiKeyConfigured }: SetupProps) {
                 <button
                   onClick={() => {
                     useConfigStore.getState().saveConfig({
-                      apiKey: localUseDefaultApi ? DEFAULT_API_KEY : localApiKey.trim(),
-                      model: 'MiniMax-M2.7',
-                      baseUrl: 'https://api.minimax.chat/v1',
-                      provider: 'minimax',
+                      ...DEFAULT_MINIMAX_CONFIG,
+                      apiKey: localUseDefaultApi ? DEFAULT_MINIMAX_CONFIG.apiKey : localApiKey.trim(),
                       useDefaultApi: localUseDefaultApi,
                     })
                     setShowApiModal(false)

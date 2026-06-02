@@ -1,4 +1,4 @@
-import { useConfigStore } from '../store/configStore'
+import { DEFAULT_MINIMAX_CONFIG, useConfigStore } from '../store/configStore'
 import { ABILITY_KEYS } from '../utils/achievements'
 
 // AI Provider types
@@ -76,6 +76,29 @@ interface UserBackground {
   coreDesire?: string
 }
 
+const LEGACY_MINIMAX_BASE_URL = 'https://api.minimax.chat/v1'
+
+function getMiniMaxChatUrl(baseUrl: string): string {
+  const resolvedBaseUrl = !baseUrl || baseUrl === LEGACY_MINIMAX_BASE_URL
+    ? DEFAULT_MINIMAX_CONFIG.baseUrl
+    : baseUrl
+  const normalizedBaseUrl = resolvedBaseUrl.replace(/\/+$/, '')
+
+  return normalizedBaseUrl.endsWith('/chat/completions')
+    ? normalizedBaseUrl
+    : `${normalizedBaseUrl}/chat/completions`
+}
+
+function getMiniMaxResponseError(result: Record<string, any>): string | null {
+  const statusCode = result.base_resp?.status_code
+  const hasBaseResponseError = statusCode !== undefined && Number(statusCode) !== 0
+  const message = result.error?.message || result.base_resp?.status_msg || result.message
+
+  if (!result.error && !hasBaseResponseError) return null
+
+  return `MiniMax API error${statusCode !== undefined ? ` (${statusCode})` : ''}: ${message || 'Unknown error'}`
+}
+
 // Helper to call AI API
 async function callAI(messages: Message[]): Promise<string> {
   const config = useConfigStore.getState().config
@@ -97,9 +120,9 @@ async function callAI(messages: Message[]): Promise<string> {
     headers['anthropic-version'] = '2023-06-01'
     body = { model, max_tokens: 1024, messages }
   } else if (provider === 'minimax') {
-    url = 'https://api.minimax.chat/v1/text/chatcompletion_v2'
+    url = getMiniMaxChatUrl(baseUrl)
     headers['Authorization'] = `Bearer ${apiKey}`
-    body = { model, messages, temperature: 0.7 }
+    body = { model, messages, temperature: 0.7, reasoning_split: true }
   } else {
     // OpenAI
     if (!url) url = 'https://api.openai.com/v1/chat/completions'
@@ -126,9 +149,14 @@ async function callAI(messages: Message[]): Promise<string> {
     if (!content) throw new Error('No content in Claude response')
     return content
   } else if (provider === 'minimax') {
+    const error = getMiniMaxResponseError(result)
+    if (error) throw new Error(error)
+
     const choice = result.choices?.[0]
     if (!choice) throw new Error('No choices in MiniMax response')
-    return (choice.delta?.content || choice.message?.content || '')
+    const content = choice.delta?.content || choice.message?.content
+    if (!content) throw new Error('No content in MiniMax response')
+    return content
   } else {
     return result.choices?.[0]?.message?.content || ''
   }
